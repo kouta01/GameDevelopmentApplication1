@@ -11,7 +11,7 @@ void InputControl::Update()
 	GetHitKeyStateAll(now_key);
 }
 
-bool InputControl ::  GetKey(int key_code)
+bool InputControl::GetKey(int key_code)
 {
 	return CheckKeyCodeRange(key_code) && ((now_key[key_code] == TRUE) && (old_key[key_code] == TRUE));
 }

@@ -22,7 +22,7 @@ Vector2D& Vector2D::operator=(const Vector2D& location)
 	this->x = location.x;
 	this->y = location.y;
 
-	return *this
+	return *this;
 }
 
 const Vector2D Vector2D::operator+(const Vector2D& location) const
