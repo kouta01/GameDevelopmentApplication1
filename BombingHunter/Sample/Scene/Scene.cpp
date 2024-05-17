@@ -1,44 +1,40 @@
 #include "Scene.h"
-
 #include "../Objects/Player/Player.h"
+#include "../Objects/Enemy/Enemy.h"
+#include "../Utility/InputControl.h"
+#include "DxLib.h"
 
-//コンストラクタ
+#define D_PIVOT_CENTER
+
 Scene::Scene() : objects()
 {
 
 }
 
-//デストラクタ
 Scene::~Scene()
 {
-	//忘れ防止
+	//解放忘れ防止
 	Finalize();
 }
 
-//初期化処理
 void Scene::Initialize()
 {
-	//プレイヤーを生成する
+	//プレイヤーを画面中央あたりに生成する
 	CreateObject<Player>(Vector2D(320.0f, 240.0f));
 }
 
-//更新処理
 void Scene::Update()
 {
-	//シーンに存在するオブジェクトの更新処理
+	//オブジェクトリスト内のオブジェクトを更新する
 	for (GameObject* obj : objects)
 	{
 		obj->Update();
 	}
-}
 
-//描画処理
-void Scene::Draw() const
-{
-	//シーンに存在するオブジェクトの描画処理
-	for (GameObject* obj : objects)
+	//オブジェクト同士の当たり判定チェック
+	for (int i = 0; i < objects.size(); j++)
 	{
-		obj->Draw();
+		//当たり判定チェック
 	}
 }
 

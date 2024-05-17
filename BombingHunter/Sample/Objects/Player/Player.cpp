@@ -25,6 +25,7 @@ void Player::Initialize()
 		throw("鳥パイロットの画像がありません\n");
 	}
 
+
 	//向きの設定
 	radian = 0.0f;
 
