@@ -17,24 +17,24 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 		//異常を通知
 		return -1;
 	}
-
-	//ローカル変数定義
-	Scene* scene = new Scene();  //シーン情報
-	int result = 0;              //終了状態情報
-
 	//描画先を裏画面から始めるように指定する
 	SetDrawScreen(DX_SCREEN_BACK);
+
+	//ローカル変数定義
+	Scene* scene = new Scene();  //シーンを生成する
+	int result = 0;              //終了状態情報
 
 	try
 	{
 		//シーンの初期化
 		scene->Initialize();
 
-		//メインループ(ウインドウの異常発生 or ESCキーが押されたら、ループ終了)
-		while (ProcessMessage() != -1 && CheckHitKey(KEY_INPUT_ESCAPE) != TRUE)
+		//メインループ(更新と描画を行う)
+		//ESCキーが押されたら、ループを終了する
+		while (ProcessMessage() != -1 && InputControl::GetKeyUp(KEY_INPUT_ESCAPE) == false)
 
 		{
-			//入力機能の更新
+			//入力機能の更新処理
 			InputControl::Update();
 
 			//シーンの更新処理
@@ -52,13 +52,13 @@ int WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE hPrevInstance, _
 	}
 	catch (const char* error_log)
 	{
-		//エラー情報をLog.txtに出力する
+		//例外スローされた情報をログファイルに出力する
 		OutputDebugString(error_log);
 		//異常状態に変更する
 		result = -1;
 	}
 
-	//シーン情報の削除する
+	//シーン情報が存在して入れば、削除する
 	if (scene != nullptr)
 	{
 		scene->Finalize();

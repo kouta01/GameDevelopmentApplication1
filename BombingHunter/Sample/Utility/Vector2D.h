@@ -43,5 +43,5 @@ public:
 
 public:
 	//整数値にキャストする
-	void ToInt(int* x, int* y) const;
+	void ToInt(int* x, int* y) ;
 };
