@@ -22,7 +22,7 @@ void Enemy::Initialize()
 	//エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
 	{
-		throw("ハコテキの画像がありません/n");
+		throw("ハコテキの画像がありません\n");
 	}
 
 	//向きの設定
@@ -67,8 +67,8 @@ void Enemy::Draw() const
 	//情報を基にハコテキ画像を描画する
 	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
 
-	//親クラスの描画処理を呼び出す
-	__super::Draw();
+		//親クラスの描画処理を呼び出す
+		__super::Draw();
 }
 
 //終了時処理
@@ -95,6 +95,7 @@ void Enemy::Movement()
 	{
 		direction.x *= -1.0f;
 	}
+
 	if (((location.y + direction.y) < box_size.y) ||
 		(480.0f - box_size.y) < (location.y + direction.y))
 	{

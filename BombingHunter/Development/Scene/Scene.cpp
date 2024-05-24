@@ -42,10 +42,8 @@ void Scene::Update()
 	}
 
 	//Zキーを押したら、敵を生成する
-	if (InputControl::GetKeyDown(KEY_INPUT_Z))
-	{
+
 		CreateObject<Enemy>(Vector2D(100.0f, 400.0f));
-	}
 }
 
 void Scene::Draw()const
@@ -79,7 +77,7 @@ void Scene::Finalize()
 
 #ifdef D_PIVOT_CENTER
 
-//当たり判定チェック処理(矩形の中心で当たり判定を取る)
+//当たり判定チェック処理(矩形の中心で当たり判定を取る
 void Scene::HitCheckObject(GameObject* a, GameObject* b)
 {
 	//2つのオブジェクトの距離を取得
@@ -99,7 +97,7 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 
 #else
 
-//当たり判定チェック処理(左上頂点の座標から当たり判定計算を行う)
+//当たり判定チェック処理(左上の頂点座標から当たり判定計算を行う)
 void Scene::HitCheckObject(GameObject* a, GameObject* b)
 {
 	//右下頂点座標を取得する
@@ -118,4 +116,4 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 	}
 }
 
-#endif // D_PIVOT_CNETER
+#endif  // D_PIVOT_CNETER

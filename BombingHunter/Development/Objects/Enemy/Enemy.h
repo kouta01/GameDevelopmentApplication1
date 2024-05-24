@@ -5,9 +5,9 @@
 class Enemy : public GameObject
 {
 private:
-	int animation[2];     //アニメーション画像
+	int animation[2];  //アニメーション画像
 	int animation_count;  //アニメーション時間
-	Vector2D direction;   //進行方向
+	Vector2D direction;  //進行方向
 
 public:
 	Enemy();
@@ -16,9 +16,9 @@ public:
 	//初期化処理
 	virtual void Initialize() override;
 	//更新処理
-	virtual void Update() override;
+	virtual void Update()     override;
 	//描画処理
-	virtual void Draw()const  override;
+	virtual void Draw() const override;
 	//終了時処理
 	virtual void Finalize() override;
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include  "../Objects/GameObject.h"
 #include <vector>
+#include "../Objects/GameObject.h"
 
 class Scene
 {
@@ -34,7 +34,7 @@ private:
 		if (new_object == nullptr)
 		{
 			delete new_instance;
-			throw("GameObjectが生成できませんでした。/n");
+			throw ("ゲームオブジェクトが生成できませんでした。/n");
 		}
 
 		//初期化処理
