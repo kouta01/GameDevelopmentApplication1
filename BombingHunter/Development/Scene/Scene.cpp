@@ -42,8 +42,10 @@ void Scene::Update()
 	}
 
 	//ZƒL[‚ğ‰Ÿ‚µ‚½‚çA“G‚ğ¶¬‚·‚é
-
+	if (InputControl::GetKeyDown(KEY_INPUT_Z))
+	{
 		CreateObject<Enemy>(Vector2D(100.0f, 400.0f));
+	}
 }
 
 void Scene::Draw()const
