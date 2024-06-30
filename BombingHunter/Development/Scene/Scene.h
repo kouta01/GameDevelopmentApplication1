@@ -2,11 +2,21 @@
 
 #include <vector>
 #include "../Objects/GameObject.h"
+#include "../Objects/Player/Player.h"
+#include "../Objects/Enemy/Enemy.h"
+
 
 class Scene
 {
 private:
 	std::vector<GameObject*> objects;  //オブジェクトリスト
+	Player* player;
+	Enemy* enemy;
+	int zikan;
+	int zikan_count;
+	int number_image[10];
+	int zikan_image;
+	int finish_image;
 
 public:
 	Scene();
@@ -20,6 +30,7 @@ public:
 private:
 	//当たり判定チェック処理
 	void HitCheckObject(GameObject* a, GameObject* b);
+	bool IsHitCheck(Player* p, Enemy* e);
 
 	//オブジェクト生成処理
 	template <class T>

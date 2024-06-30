@@ -1,31 +1,37 @@
-#include "Enemy.h"
+#include "GoldEnemy.h"
 #include "../../Objects/Bomb/Bomb.h"
 #include "../GameObject.h"
 #include "DxLib.h"
 
-Enemy::Enemy() : animation_count(0),  direction(0.0f)
+GoldEnemy::GoldEnemy() : animation_count(0), direction(0.0f)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
+	animation[2] = NULL;
+	animation[3] = NULL;
+	animation[4] = NULL;
 }
 
-Enemy::~Enemy()
+GoldEnemy::~GoldEnemy()
 {
 
 }
 
 //初期化処理
-void Enemy::Initialize()
+void GoldEnemy::Initialize()
 {
 	//画像の読込み
-	animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
-	animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
-	taip = ENEMY;
+	animation[0] = LoadGraph("Resource/Images/GoldEnemy/1.png");
+	animation[1] = LoadGraph("Resource/Images/GoldEnemy/2.png");
+	animation[2] = LoadGraph("Resource/Images/GoldEnemy/3.png");
+	animation[3] = LoadGraph("Resource/Images/GoldEnemy/4.png");
+	animation[4] = LoadGraph("Resource/Images/GoldEnemy/5.png");
+	taip = GOLDENEMY;
 
 	//エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
 	{
-		throw("ハコテキの画像がありません\n");
+		throw("レアテキの画像がありません\n");
 	}
 
 	//向きの設定
@@ -42,7 +48,7 @@ void Enemy::Initialize()
 }
 
 //更新処理
-void Enemy::Update()
+void GoldEnemy::Update()
 {
 	if (!isActive) return;
 	//移動処理
@@ -53,7 +59,7 @@ void Enemy::Update()
 }
 
 //描画処理
-void Enemy::Draw() const
+void GoldEnemy::Draw() const
 {
 	if (!isActive) return;
 	//画像反転フラグ
@@ -69,23 +75,26 @@ void Enemy::Draw() const
 		flip_flag = TRUE;
 	}
 
-	//情報を基にハコテキ画像を描画する
-	DrawRotaGraphF(location.x, location.y, 0.7, radian, image, TRUE, flip_flag);
+	//情報を基にレアテキ画像を描画する
+	DrawRotaGraphF(location.x, location.y, 1.0, radian, image, TRUE, flip_flag);
 
-		//親クラスの描画処理を呼び出す
-		__super::Draw();
+	//親クラスの描画処理を呼び出す
+	__super::Draw();
 }
 
 //終了時処理
-void Enemy::Finalize()
+void GoldEnemy::Finalize()
 {
 	//使用した画像を解放
 	DeleteGraph(animation[0]);
 	DeleteGraph(animation[1]);
+	DeleteGraph(animation[2]);
+	DeleteGraph(animation[3]);
+	DeleteGraph(animation[4]);
 }
 
 //当たり判定通知処理
-void Enemy::OnHitCollision(GameObject* hit_object)
+void GoldEnemy::OnHitCollision(GameObject* hit_object)
 {
 	if (hit_object->Gettaip() == BOMB)
 	{
@@ -103,9 +112,8 @@ void Enemy::OnHitCollision(GameObject* hit_object)
 	}
 }
 
-
 //移動処理
-void Enemy::Movement()
+void GoldEnemy::Movement()
 {
 	if (!isActive) return;
 	//画面端に到達したら、進行方向を反転する
@@ -126,7 +134,7 @@ void Enemy::Movement()
 }
 
 //アニメーション制御
-void Enemy::AnimationControl()
+void GoldEnemy::AnimationControl()
 {
 	if (!isActive) return;
 	//アニメーションカウントを加算する

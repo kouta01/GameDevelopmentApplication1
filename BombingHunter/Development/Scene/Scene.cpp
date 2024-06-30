@@ -1,6 +1,10 @@
 #include "Scene.h"
 #include "../Objects/Player/Player.h"
 #include "../Objects/Enemy/Enemy.h"
+#include "../Objects/GoldEnemy/GoldEnemy.h"
+#include "../Objects/Harpy/Harpy.h"
+#include "../Objects/WingEnemy/WingEnemy.h"
+#include "../Objects/Bomb/Bomb.h"
 #include "../Utility/InputControl.h"
 #include "DxLib.h"
 
@@ -19,8 +23,10 @@ Scene::~Scene()
 
 void Scene::Initialize()
 {
+	
+
 	//プレイヤーを画面中央あたりに生成する
-	CreateObject<Player>(Vector2D(320.0f, 240.0f));
+	CreateObject<Player>(Vector2D(320.0f, 60.0f));
 }
 
 void Scene::Update()
@@ -46,10 +52,42 @@ void Scene::Update()
 	{
 		CreateObject<Enemy>(Vector2D(100.0f, 400.0f));
 	}
+
+	//Gキーを押したら、レア敵を生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_G))
+	{
+		CreateObject<GoldEnemy>(Vector2D(100.0f, 400.0f));
+	}
+
+	//Wキーを押したら、トブテキを生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_W))
+	{
+		CreateObject<WingEnemy>(Vector2D(100.0f, 200.0f));
+	}
+
+	//Hキーを押したら、鳥を生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_H))
+	{
+		CreateObject<Harpy>(Vector2D(100.0f, 200.0f));
+	}
+
+	//Bキーを押したら、爆弾を生成する
+	if (InputControl::GetKeyDown(KEY_INPUT_B))
+	{
+		CreateObject<Bomb>(Vector2D(320.0f, 125.0f));
+	}
+
 }
 
 void Scene::Draw()const
 {
+	//画像の読込み
+	int background_image = LoadGraph("Resource/Images/BackGround.png");
+	DrawGraph(0, 0, background_image, FALSE);
+	//エラーチェック
+	if (background_image == -1) {
+		throw("画像BackGround.pngがありません\n");
+	}
 	//オブジェクトリスト内のオブジェクトを描画する
 	for (GameObject* obj : objects)
 	{
@@ -95,6 +133,23 @@ void Scene::HitCheckObject(GameObject* a, GameObject* b)
 		a->OnHitCollision(b);
 		b->OnHitCollision(a);
 	}
+}
+
+//あたり判定処理(プレイヤーと敵)
+bool IsHitCheck(Player* p, Enemy* e)
+{
+	//敵情報がなければ、当たり判定を無視する
+	if (e == nullptr) {
+		return false;
+	}
+
+	//位置情報の差分取得
+	Vector2D diff_location = p->GetLocation() - e->GetLocation();
+
+	//当たり判定サイズの大きさを取得
+	Vector2D box_ex = p->GetBoxSize() + e->GetBoxSize();
+	//コリジョンデータより位置情報の差分が小さいなら、ヒット判定
+	return ((fabs(diff_location.x) < box_ex.x) && (fabsf(diff_location.y) < box_ex.y));
 }
 
 #else

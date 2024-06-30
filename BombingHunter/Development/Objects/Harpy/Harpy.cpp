@@ -1,31 +1,31 @@
-#include "Enemy.h"
+#include "Harpy.h"
 #include "../../Objects/Bomb/Bomb.h"
 #include "../GameObject.h"
 #include "DxLib.h"
 
-Enemy::Enemy() : animation_count(0),  direction(0.0f)
+Harpy::Harpy() : animation_count(0), direction(0.0f)
 {
 	animation[0] = NULL;
 	animation[1] = NULL;
 }
 
-Enemy::~Enemy()
+Harpy::~Harpy()
 {
 
 }
 
 //初期化処理
-void Enemy::Initialize()
+void Harpy::Initialize()
 {
 	//画像の読込み
-	animation[0] = LoadGraph("Resource/Images/BoxEnemy/1.png");
-	animation[1] = LoadGraph("Resource/Images/BoxEnemy/2.png");
-	taip = ENEMY;
+	animation[0] = LoadGraph("Resource/Images/Harpy/1.png");
+	animation[1] = LoadGraph("Resource/Images/Harpy/2.png");
+	taip = HARPY;
 
 	//エラーチェック
 	if (animation[0] == -1 || animation[1] == -1)
 	{
-		throw("ハコテキの画像がありません\n");
+		throw("鳥の画像がありません\n");
 	}
 
 	//向きの設定
@@ -42,7 +42,7 @@ void Enemy::Initialize()
 }
 
 //更新処理
-void Enemy::Update()
+void Harpy::Update()
 {
 	if (!isActive) return;
 	//移動処理
@@ -53,7 +53,7 @@ void Enemy::Update()
 }
 
 //描画処理
-void Enemy::Draw() const
+void Harpy::Draw() const
 {
 	if (!isActive) return;
 	//画像反転フラグ
@@ -72,12 +72,12 @@ void Enemy::Draw() const
 	//情報を基にハコテキ画像を描画する
 	DrawRotaGraphF(location.x, location.y, 0.7, radian, image, TRUE, flip_flag);
 
-		//親クラスの描画処理を呼び出す
-		__super::Draw();
+	//親クラスの描画処理を呼び出す
+	__super::Draw();
 }
 
 //終了時処理
-void Enemy::Finalize()
+void Harpy::Finalize()
 {
 	//使用した画像を解放
 	DeleteGraph(animation[0]);
@@ -85,7 +85,7 @@ void Enemy::Finalize()
 }
 
 //当たり判定通知処理
-void Enemy::OnHitCollision(GameObject* hit_object)
+void Harpy::OnHitCollision(GameObject* hit_object)
 {
 	if (hit_object->Gettaip() == BOMB)
 	{
@@ -103,9 +103,8 @@ void Enemy::OnHitCollision(GameObject* hit_object)
 	}
 }
 
-
 //移動処理
-void Enemy::Movement()
+void Harpy::Movement()
 {
 	if (!isActive) return;
 	//画面端に到達したら、進行方向を反転する
@@ -126,7 +125,7 @@ void Enemy::Movement()
 }
 
 //アニメーション制御
-void Enemy::AnimationControl()
+void Harpy::AnimationControl()
 {
 	if (!isActive) return;
 	//アニメーションカウントを加算する

@@ -4,6 +4,13 @@
 
 #define D_PIVOT_CENTER  //座標の原点を画像の中心にする
 
+#define ENEMY (1)
+#define GOLDENEMY (2)
+#define HARPY (3)
+#define PLAYER (4)
+#define WINGENEMY (5)
+#define BOMB (6)
+
 //ゲームオブジェクト基底クラス
 class GameObject
 {
@@ -13,10 +20,14 @@ protected:
 	double radian;      //向き
 	int image;          //画像
 	int sound;          //音源
+	int taip;
 
 public:
 	GameObject();
 	virtual ~GameObject();
+	bool isActive;
+	bool deleteflag;
+	bool Deleteobject();
 
 	virtual void Initialize();
 	virtual void Update();
@@ -33,4 +44,6 @@ public:
 
 	//当たり判定の大きさを取得する
 	Vector2D GetBoxSize() const;
+
+	int Gettaip();
 };

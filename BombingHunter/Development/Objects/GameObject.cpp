@@ -4,10 +4,11 @@
 
 GameObject::GameObject() :
 	location(0.0f),
-	box_size(0.0),
+	box_size(0.0f),
 	radian(0.0),
 	image(NULL),
-	sound(NULL)
+	sound(NULL),
+	isActive(true)
 {
 
 }
@@ -57,6 +58,7 @@ void GameObject::Finalize()
 void GameObject::OnHitCollision(GameObject* int_object)
 {
 	//“–‚½‚Á‚½Žž‚Ìˆ—
+
 }
 
 //ˆÊ’uî•ñŽæ“¾ˆ—
@@ -74,4 +76,14 @@ void GameObject::SetLocation(const Vector2D& location)
 Vector2D GameObject::GetBoxSize() const
 {
 	return box_size;
+}
+
+int GameObject::Gettaip()
+{
+	return this->taip;
+}
+
+bool GameObject::Deleteobject()
+{
+	return this->deleteflag;
 }
